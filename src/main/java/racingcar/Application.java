@@ -13,9 +13,8 @@ public class Application {
         System.out.println("시도할 횟수는 몇 회인가요?");
         String inputRound = Console.readLine();
         int roundNumber = racingManager.validateRoundInput(inputRound);
-        for (int i = 0; i < roundNumber; i++) {
-            racingManager.runOneRound();
-        }
+        String result = racingManager.getResult(roundNumber);
+        System.out.println(result);
     }
 
  /*   """
