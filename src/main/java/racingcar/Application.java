@@ -4,42 +4,42 @@ import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 
 public class Application {
-    public static void main(String[] args) {
-        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String inputNames = Console.readLine();
-        CarGenerator carGenerator = new CarGenerator();
-        List<Car> cars = carGenerator.generateCars(inputNames);
-        RacingManager racingManager = new RacingManager(cars);
-        System.out.println("시도할 횟수는 몇 회인가요?");
-        String inputRound = Console.readLine();
-        int roundNumber = racingManager.validateRoundInput(inputRound);
-        String result = racingManager.getResult(roundNumber);
-        System.out.println(result);
+    private final CarGenerator carGenerator;
+    private final RacingManager racingManager;
+    private final ResultHandler resultHandler;
+
+    public Application(CarGenerator carGenerator, RacingManager racingManager, ResultHandler resultHandler) {
+        this.carGenerator = carGenerator;
+        this.racingManager = racingManager;
+        this.resultHandler = resultHandler;
     }
 
- /*   """
-    실행 결과
-    pobi : -
-    woni :
-    jun : -
+    public static void main(String[] args) {
+        AppConfig appConfig = new AppConfig();
+        Application app = appConfig.racingApp();
+        app.run();
+    }
 
-    pobi : --
-    woni : -
-    jun : --
+    public void run() {
+        List<Car> cars = generateCars();
+        int roundNumber = parseRoundNumber();
+        printResult(roundNumber, cars);
+    }
 
-    pobi : ---
-    woni : --
-    jun : ---
+    private List<Car> generateCars() {
+        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        String inputNames = Console.readLine();
+        return carGenerator.generateCars(inputNames);
+    }
 
-    pobi : ----
-    woni : ---
-    jun : ----
+    private int parseRoundNumber() {
+        System.out.println("시도할 횟수는 몇 회인가요?");
+        String inputRound = Console.readLine();
+        return racingManager.validateRoundInput(inputRound);
+    }
 
-    pobi : -----
-    woni : ----
-    jun : -----
-
-    최종 우승자 : pobi, jun
-    """
-*/
+    private void printResult(int roundNumber, List<Car> cars) {
+        String result = resultHandler.getResult(roundNumber, cars);
+        System.out.println(result);
+    }
 }

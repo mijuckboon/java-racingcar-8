@@ -2,10 +2,9 @@ package racingcar;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
-    public static final int MIN_POSITION = 0;
     private static final int MOVE_UNIT = 1;
 
-    private String name;
+    private final String name;
     private int position;
 
     public Car(String name) {
@@ -28,7 +27,7 @@ public class Car {
     }
 
     public void move() {
-        position += MOVE_UNIT;
+        position += MOVE_UNIT; // 멀티 스레드 환경이면 동시성 문제 발생할 수 있음 (synchronized 혹은 AtomicInteger 사용)
         validatePosition(position);
     }
 
@@ -45,9 +44,9 @@ public class Car {
     }
 
     private void validatePosition(int position) {
-        if (position < MIN_POSITION) {
+        if (position < RacingManager.MIN_POSITION) {
             throw new IllegalArgumentException("위치는 %d보다 작은 값일 수 없습니다. (입력값: %d)".formatted(
-                    MIN_POSITION, position)
+                    RacingManager.MIN_POSITION, position)
             );
         }
     }
