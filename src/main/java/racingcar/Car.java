@@ -2,13 +2,15 @@ package racingcar;
 
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
+    private static final int MIN_POSITION = 0;
+    private static final int MOVE_UNIT = 1;
 
     private String name;
     private int position;
 
     public Car(String name) {
         if (name == null) {
-            throw new IllegalArgumentException(); // trim으로 인한 NPE 방지
+            throw new IllegalArgumentException("이름은 필수입니다."); // 주 식별자 역할 필요 + trim으로 인한 NPE 방지
         }
         String trimmedName = name.trim();
         validateName(trimmedName);
@@ -25,13 +27,28 @@ public class Car {
         return position;
     }
 
-    public void validateName(String name) {
+    public void move() {
+        position += MOVE_UNIT;
+        validatePosition(position);
+    }
+
+    private void validateName(String name) {
         if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException("이름은 %d글자 이내여야 합니다.".formatted(MAX_NAME_LENGTH));
+            throw new IllegalArgumentException("이름은 %d글자 이내여야 합니다. (입력값: %s, 길이: %d)".formatted(
+                    MAX_NAME_LENGTH, name, name.length()
+            ));
         }
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("이름은 빈 문자열일 수 없습니다.");
+        }
+    }
+
+    private void validatePosition(int position) {
+        if (position < MIN_POSITION) {
+            throw new IllegalArgumentException("위치는 %d보다 작은 값일 수 없습니다. (입력값: %d)".formatted(
+                    MIN_POSITION, position)
+            );
         }
     }
 }

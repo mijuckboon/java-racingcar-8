@@ -9,12 +9,16 @@ public class Application {
         String inputNames = Console.readLine();
         CarGenerator carGenerator = new CarGenerator();
         List<Car> cars = carGenerator.generateCars(inputNames);
+        RacingManager racingManager = new RacingManager(cars);
+        System.out.println("시도할 횟수는 몇 회인가요?");
+        String inputRound = Console.readLine();
+        int roundNumber = racingManager.validateRoundInput(inputRound);
+        for (int i = 0; i < roundNumber; i++) {
+            racingManager.runOneRound();
+        }
     }
 
  /*   """
-    시도할 횟수는 몇 회인가요?
-            5
-
     실행 결과
     pobi : -
     woni :
