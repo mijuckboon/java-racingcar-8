@@ -1,6 +1,7 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,28 +14,46 @@ public class RacingManager {
     private static final int MIN_ROUND_NUMBER = 0;
     private static final int MAX_ROUND_NUMBER = 10;
 
-    public static final int MIN_POSITION = 0;
-
     /**
-     * 1개의 라운드를 진행하는 메서드
+     * 경주 결과를 초기화하는 메서드
      * @param cars 자동차 목록
+     * @return 경주 결과 목록
      */
-    public void runOneRound(List<Car> cars) {
+    public List<RacingResult> createRacingResults(List<Car> cars) {
+        List<RacingResult> racingResults = new ArrayList<>();
         for (Car car : cars) {
-            runOneRound(car);
+            String carName = car.getName();
+            RacingResult racingResult = new RacingResult(carName);
+            racingResults.add(racingResult);
         }
+        return racingResults;
     }
 
     /**
-     * 자동차 한 대에 대해 1개의 라운드를 진행하는 메서드 <br/>
-     * 자동차가 움직이는 경우를 결정
-     * @param car 자동차
+     * 1개의 라운드를 진행하는 메서드
      */
-    private void runOneRound(Car car) {
-        int randomNumber = chooseRandomValue();
-        if (randomNumber >= MIN_VALUE_FOR_MOVE) {
-            car.move();
+    public void runOneRound(List<RacingResult> racingResults, int roundIndex) {
+        for (RacingResult racingResult : racingResults) {
+            runOneRoundForOneCar(racingResult, roundIndex);
         }
+    }
+
+    private void runOneRoundForOneCar(RacingResult racingResult, int roundIndex) {
+        RoundResult roundResult = getRoundResult(roundIndex, racingResult);
+        racingResult.saveRoundResult(roundIndex, roundResult);
+    }
+
+    private RoundResult getRoundResult(int roundIndex, RacingResult racingResult) {
+        int randomValue = chooseRandomValue();
+        boolean isMoved = randomValue >= MIN_VALUE_FOR_MOVE;
+        int position = racingResult.getLastPosition();
+        RoundResult roundResult = new RoundResult(roundIndex, randomValue, isMoved, position);
+
+        if (isMoved) {
+           roundResult.moveCar();
+        }
+
+        return roundResult;
     }
 
     private int chooseRandomValue() {
@@ -59,6 +78,4 @@ public class RacingManager {
             ));
         }
     }
-
-
 }

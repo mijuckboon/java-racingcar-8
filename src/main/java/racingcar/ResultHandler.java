@@ -2,7 +2,6 @@ package racingcar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 결과를 처리하는 클래스
@@ -15,54 +14,53 @@ public class ResultHandler {
     }
 
     /**
-     * 경주 결과를 반환하는 메서드
-     * @param roundNumber 라운드 진행 횟수
-     * @param cars 자동차 목록
+     * 경주 결과 문자열을 반환하는 메서드
+     * @param totalRounds 라운드 진행 횟수
+     * @param racingResults 자동차별 경주 결과 목록
      * @return 결과 문자열
      */
-    public String getResult(int roundNumber, List<Car> cars) {
+    public String getResult(int totalRounds, List<RacingResult> racingResults) {
         StringBuilder resultBuilder = new StringBuilder("실행 결과").append(System.lineSeparator());
-        for (int i = 0; i < roundNumber; i++) {
-            racingManager.runOneRound(cars);
-            resultBuilder.append(buildRoundResult(cars));
+        for (int roundIndex = 1; roundIndex <= totalRounds; roundIndex++) {
+            racingManager.runOneRound(racingResults, roundIndex);
+            resultBuilder.append(buildRoundResult(racingResults, roundIndex));
         }
-        List<Car> winners = getWinners(cars);
-        String winnersInString = winners.stream()
-                .map(car -> car.getName())
-                .collect(Collectors.joining(", "));
+        List<String> winners = getWinners(racingResults);
+        String winnersInString = String.join(", ", winners);
         resultBuilder.append("최종 우승자 : %s".formatted(winnersInString));
         return resultBuilder.toString();
     }
 
     /**
      * 1개 라운드의 결과를 반환하는 메서드
-     * @param cars 자동차 목록
-     * @return 결과 StringBuilder 객체
+     * @param racingResults 경주 결과 배열
+     * @param roundIndex 라운드 번호
+     * @return StringBuilder 객체
      */
-    public StringBuilder buildRoundResult(List<Car> cars) {
+    public StringBuilder buildRoundResult(List<RacingResult> racingResults, int roundIndex) {
         StringBuilder resultBuilder = new StringBuilder();
-        for (Car car : cars) {
-            String carName = car.getName();
-            int position = car.getPosition();
-            String positionMark = "-".repeat(position);
+        for (RacingResult racingResult : racingResults) {
+            RoundResult roundResult = racingResult.getRoundResult(roundIndex);
+            String carName = racingResult.getCarName();
+            String positionMark = "-".repeat(roundResult.getPosition());
             resultBuilder.append("%s : %s".formatted(carName, positionMark)).append(System.lineSeparator());
         }
         resultBuilder.append(System.lineSeparator());
         return resultBuilder;
     }
 
-    private List<Car> getWinners(List<Car> cars) {
-        List<Car> winners = new ArrayList<>();
-        int maxPosition = RacingManager.MIN_POSITION;
-        for (Car car : cars) {
-            int position = car.getPosition();
-
+    private List<String> getWinners(List<RacingResult> racingResults) {
+        List<String> winners = new ArrayList<>();
+        int maxPosition = RoundResult.MIN_POSITION;
+        for (RacingResult racingResult : racingResults) {
+            int position = racingResult.getLastPosition();
+            String carName = racingResult.getCarName();
             if (position == maxPosition) {
-                winners.add(car);
+                winners.add(carName);
             }
             if (position > maxPosition) {
                 maxPosition = position;
-                winners = new ArrayList<>(List.of(car));
+                winners = new ArrayList<>(List.of(carName));
             }
         }
         return winners;

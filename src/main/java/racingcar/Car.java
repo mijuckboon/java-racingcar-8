@@ -4,15 +4,12 @@ package racingcar;
  * 경주에 참가하는 자동차 객체
  * <p>
  * name: 이름 (주 식별자)
- * position: 위치
  * </p>
  */
-public class Car {
+public class Car { // Result 안에 합병할 수도 있으나, 추후 확장성을 위해 유지
     private static final int MAX_NAME_LENGTH = 5;
-    private static final int MOVE_UNIT = 1;
 
     private final String name;
-    private int position;
 
     public Car(String name) {
         if (name == null) {
@@ -22,20 +19,10 @@ public class Car {
         validateName(trimmedName);
 
         this.name = trimmedName;
-        this.position = 0;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void move() {
-        position += MOVE_UNIT; // 멀티 스레드 환경이면 동시성 문제 발생할 수 있음 (synchronized 혹은 AtomicInteger 사용)
-        validatePosition(position);
     }
 
     private void validateName(String name) {
@@ -47,14 +34,6 @@ public class Car {
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("이름은 빈 문자열일 수 없습니다.");
-        }
-    }
-
-    private void validatePosition(int position) {
-        if (position < RacingManager.MIN_POSITION) {
-            throw new IllegalArgumentException("위치는 %d보다 작은 값일 수 없습니다. (입력값: %d)".formatted(
-                    RacingManager.MIN_POSITION, position)
-            );
         }
     }
 }

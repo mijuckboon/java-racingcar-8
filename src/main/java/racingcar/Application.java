@@ -29,8 +29,9 @@ public class Application {
      */
     public void run() {
         List<Car> cars = generateCars();
+        List<RacingResult> racingResults = racingManager.createRacingResults(cars);
         int roundNumber = parseRoundNumber();
-        printResult(roundNumber, cars);
+        printResult(roundNumber, racingResults);
     }
 
     private List<Car> generateCars() {
@@ -45,8 +46,8 @@ public class Application {
         return racingManager.validateRoundInput(inputRound);
     }
 
-    private void printResult(int roundNumber, List<Car> cars) {
-        String result = resultHandler.getResult(roundNumber, cars);
+    private void printResult(int roundNumber, List<RacingResult> racingResults) {
+        String result = resultHandler.getResult(roundNumber, racingResults);
         System.out.println(result);
     }
 }
