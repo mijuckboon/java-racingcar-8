@@ -1,5 +1,6 @@
 package racingcar.config;
 
+import racingcar.domain.RacingResult;
 import racingcar.service.CarService;
 import racingcar.presentation.ResultHandler;
 import racingcar.presentation.Application;
@@ -10,9 +11,25 @@ import racingcar.service.RacingService;
  */
 public class AppConfig {
     public Application racingApp() {
-        CarService carService = new CarService();
-        RacingService racingService = new RacingService();
-        ResultHandler resultHandler = new ResultHandler(racingService);
+        CarService carService = initializeCarService();
+        RacingService racingService = initializeRacingService();
+        ResultHandler resultHandler = initializeResultHandler(racingService);
+        return initializeApplication(carService, racingService, resultHandler);
+    }
+
+    private CarService initializeCarService() {
+        return new CarService();
+    }
+
+    private RacingService initializeRacingService() {
+        return new RacingService();
+    }
+
+    private ResultHandler initializeResultHandler(RacingService racingService) {
+        return new ResultHandler(racingService);
+    }
+
+    private Application initializeApplication(CarService carService, RacingService racingService, ResultHandler resultHandler) {
         return new Application(carService, racingService, resultHandler);
     }
 }

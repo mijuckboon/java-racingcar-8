@@ -34,7 +34,7 @@ public class CarService {
      * @param input 자동차 이름을 결정하는 입력 문자열
      * @return 자동차 목록
      */
-    public List<Car> generateCars(String input) {
+    public List<Car> createCars(String input) {
         String[] carsNames = input.split(CAR_NAME_SEPARATOR);
         List<Car> cars = new ArrayList<>();
         for (String carName : carsNames) {

@@ -24,35 +24,51 @@ public class Application {
     }
 
     public static void main(String[] args) {
+        Application application = initializeApp();
+        application.run();
+    }
+
+    private static Application initializeApp() {
         AppConfig appConfig = new AppConfig();
-        Application app = appConfig.racingApp();
-        app.run();
+        return appConfig.racingApp();
     }
 
     /**
      * 프로그램 실행 로직 메서드
      */
     public void run() {
-        List<Car> cars = generateCars();
-        List<RacingResult> racingResults = racingService.createRacingResults(cars);
-        int roundNumber = parseRoundNumber();
-        printResult(roundNumber, racingResults);
+        List<Car> cars = createCars();
+        List<RacingResult> racingResults = createRacingResults(cars);
+        int totalRounds = parseTotalRounds();
+        printResult(totalRounds, racingResults);
     }
 
-    private List<Car> generateCars() {
-        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String inputNames = Console.readLine();
-        return carService.generateCars(inputNames);
+    private List<Car> createCars() {
+        println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        String inputNames = parseInput();
+        return carService.createCars(inputNames);
     }
 
-    private int parseRoundNumber() {
-        System.out.println("시도할 횟수는 몇 회인가요?");
-        String inputRound = Console.readLine();
+    private void println(String message) {
+        System.out.println(message);
+    }
+
+    private String parseInput() {
+        return Console.readLine();
+    }
+
+    private List<RacingResult> createRacingResults(List<Car> cars) {
+        return racingService.createRacingResults(cars);
+    }
+
+    private int parseTotalRounds() {
+        println("시도할 횟수는 몇 회인가요?");
+        String inputRound = parseInput();
         return racingService.parseAndValidateRoundInput(inputRound);
     }
 
-    private void printResult(int roundNumber, List<RacingResult> racingResults) {
-        String result = resultHandler.getResult(roundNumber, racingResults);
-        System.out.println(result);
+    private void printResult(int totalRounds, List<RacingResult> racingResults) {
+        String result = resultHandler.getResult(totalRounds, racingResults);
+        println(result);
     }
 }

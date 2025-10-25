@@ -29,9 +29,13 @@ public class ResultHandler {
             resultBuilder.append(buildRoundResult(racingResults, roundIndex));
         }
         List<String> winners = getWinners(racingResults);
-        String winnersInString = String.join(", ", winners);
-        resultBuilder.append("최종 우승자 : %s".formatted(winnersInString));
+        resultBuilder.append(getWinnersInString(winners));
         return resultBuilder.toString();
+    }
+
+    private String getWinnersInString(List<String> winners) {
+        String winnersInString = String.join(", ", winners);
+        return "최종 우승자 : %s".formatted(winnersInString);
     }
 
     /**
@@ -46,7 +50,8 @@ public class ResultHandler {
             RoundResult roundResult = racingResult.getRoundResult(roundIndex);
             String carName = racingResult.getCarName();
             String positionMark = "-".repeat(roundResult.getPosition());
-            resultBuilder.append("%s : %s".formatted(carName, positionMark)).append(System.lineSeparator());
+            resultBuilder.append("%s : %s".formatted(carName, positionMark))
+                    .append(System.lineSeparator());
         }
         resultBuilder.append(System.lineSeparator());
         return resultBuilder;
@@ -63,7 +68,8 @@ public class ResultHandler {
             }
             if (position > maxPosition) {
                 maxPosition = position;
-                winners = new ArrayList<>(List.of(carName));
+                winners.clear();
+                winners.add(carName);
             }
         }
         return winners;
