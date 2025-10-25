@@ -3,6 +3,10 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 
+/**
+ * 경주 프로그램의 진입점 클래스
+ * 사용자로부터 차 이름과 횟수를 입력 받아 결과를 출력
+ */
 public class Application {
     private final CarGenerator carGenerator;
     private final RacingManager racingManager;
@@ -20,6 +24,9 @@ public class Application {
         app.run();
     }
 
+    /**
+     * 프로그램 실행 로직 메서드
+     */
     public void run() {
         List<Car> cars = generateCars();
         int roundNumber = parseRoundNumber();

@@ -1,5 +1,12 @@
 package racingcar;
 
+/**
+ * 경주에 참가하는 자동차 객체
+ * <p>
+ * name: 이름 (주 식별자)
+ * position: 위치
+ * </p>
+ */
 public class Car {
     private static final int MAX_NAME_LENGTH = 5;
     private static final int MOVE_UNIT = 1;

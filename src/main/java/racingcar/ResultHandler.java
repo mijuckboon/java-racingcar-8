@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 결과를 처리하는 클래스
+ */
 public class ResultHandler {
     private final RacingManager racingManager;
 
@@ -11,6 +14,12 @@ public class ResultHandler {
         this.racingManager = racingManager;
     }
 
+    /**
+     * 경주 결과를 반환하는 메서드
+     * @param roundNumber 라운드 진행 횟수
+     * @param cars 자동차 목록
+     * @return 결과 문자열
+     */
     public String getResult(int roundNumber, List<Car> cars) {
         StringBuilder resultBuilder = new StringBuilder("실행 결과").append(System.lineSeparator());
         for (int i = 0; i < roundNumber; i++) {
@@ -25,7 +34,11 @@ public class ResultHandler {
         return resultBuilder.toString();
     }
 
-
+    /**
+     * 1개 라운드의 결과를 반환하는 메서드
+     * @param cars 자동차 목록
+     * @return 결과 StringBuilder 객체
+     */
     public StringBuilder buildRoundResult(List<Car> cars) {
         StringBuilder resultBuilder = new StringBuilder();
         for (Car car : cars) {
