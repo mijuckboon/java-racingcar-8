@@ -31,6 +31,14 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void ApplicationFailsByBigTotalRounds() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,woni", "11"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
