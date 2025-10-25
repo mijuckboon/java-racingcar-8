@@ -10,7 +10,7 @@ import racingcar.domain.RoundResult;
 /**
  * 경주 진행을 담당하는 클래스
  */
-public class RacingManager {
+public class RacingService {
     private static final int MIN_VALUE_FOR_MOVE = 4;
     private static final int MIN_RANDOM_VALUE = 0;
     private static final int MAX_RANDOM_VALUE = 9;
@@ -70,7 +70,7 @@ public class RacingManager {
      * @param input 라운드 진행 횟수를 결정할 입력 문자열
      * @return 라운드 진행 횟수
      */
-    public int validateRoundInput(String input) {
+    public int parseAndValidateRoundInput(String input) {
         int roundNumber = Integer.parseInt(input);
         validateRoundNumber(roundNumber);
         return roundNumber;

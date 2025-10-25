@@ -1,14 +1,15 @@
-package racingcar.domain;
+package racingcar.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import racingcar.domain.Car;
 
 /**
  * 경주에 참가하는 자동차 생성을 담당하는 클래스
  */
-public class CarGenerator {
+public class CarService {
     private static final String CAR_NAME_SEPARATOR = ",";
 
     /**

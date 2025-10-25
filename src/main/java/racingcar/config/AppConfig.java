@@ -1,18 +1,18 @@
 package racingcar.config;
 
-import racingcar.domain.CarGenerator;
+import racingcar.service.CarService;
 import racingcar.presentation.ResultHandler;
 import racingcar.presentation.Application;
-import racingcar.service.RacingManager;
+import racingcar.service.RacingService;
 
 /**
  * 클래스 의존성 주입을 담당하는 클래스
  */
 public class AppConfig {
     public Application racingApp() {
-        CarGenerator carGenerator = new CarGenerator();
-        RacingManager racingManager = new RacingManager();
-        ResultHandler resultHandler = new ResultHandler(racingManager);
-        return new Application(carGenerator, racingManager, resultHandler);
+        CarService carService = new CarService();
+        RacingService racingService = new RacingService();
+        ResultHandler resultHandler = new ResultHandler(racingService);
+        return new Application(carService, racingService, resultHandler);
     }
 }

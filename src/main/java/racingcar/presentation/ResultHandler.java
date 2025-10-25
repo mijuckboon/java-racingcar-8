@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import racingcar.domain.RacingResult;
 import racingcar.domain.RoundResult;
-import racingcar.service.RacingManager;
+import racingcar.service.RacingService;
 
 /**
  * 결과를 처리하는 클래스
  */
 public class ResultHandler {
-    private final RacingManager racingManager;
+    private final RacingService racingService;
 
-    public ResultHandler(RacingManager racingManager) {
-        this.racingManager = racingManager;
+    public ResultHandler(RacingService racingService) {
+        this.racingService = racingService;
     }
 
     /**
@@ -25,7 +25,7 @@ public class ResultHandler {
     public String getResult(int totalRounds, List<RacingResult> racingResults) {
         StringBuilder resultBuilder = new StringBuilder("실행 결과").append(System.lineSeparator());
         for (int roundIndex = 1; roundIndex <= totalRounds; roundIndex++) {
-            racingManager.runOneRound(racingResults, roundIndex);
+            racingService.runOneRound(racingResults, roundIndex);
             resultBuilder.append(buildRoundResult(racingResults, roundIndex));
         }
         List<String> winners = getWinners(racingResults);
