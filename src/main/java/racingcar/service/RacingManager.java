@@ -42,21 +42,23 @@ public class RacingManager {
     }
 
     private void runOneRoundForOneCar(RacingResult racingResult, int roundIndex) {
-        RoundResult roundResult = getRoundResult(roundIndex, racingResult);
+        RoundResult roundResult = constructRoundResult(roundIndex, racingResult);
         racingResult.saveRoundResult(roundIndex, roundResult);
     }
 
-    private RoundResult getRoundResult(int roundIndex, RacingResult racingResult) {
-        int randomValue = chooseRandomValue();
-        boolean isMoved = randomValue >= MIN_VALUE_FOR_MOVE;
-        int position = racingResult.getLastPosition();
-        RoundResult roundResult = new RoundResult(roundIndex, randomValue, isMoved, position);
-
-        if (isMoved) {
+    private RoundResult constructRoundResult(int roundIndex, RacingResult racingResult) {
+        RoundResult roundResult = initializeRoundResult(roundIndex, racingResult);
+        if (roundResult.isMoved()) {
            roundResult.moveCar();
         }
-
         return roundResult;
+    }
+
+    private RoundResult initializeRoundResult(int roundIndex, RacingResult racingResult) {
+        int randomValue = chooseRandomValue();
+        boolean isMoved = randomValue >= MIN_VALUE_FOR_MOVE;
+        int position = racingResult.getPositionAtPreviousRound(roundIndex);
+        return new RoundResult(roundIndex, randomValue, isMoved, position);
     }
 
     private int chooseRandomValue() {

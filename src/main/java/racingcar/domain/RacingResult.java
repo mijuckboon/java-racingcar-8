@@ -44,8 +44,19 @@ public class RacingResult {
         return roundResults;
     }
 
-    public RoundResult getRoundResult(int round) {
-        return roundResults.get(round);
+    public RoundResult getRoundResult(int roundIndex) {
+        return roundResults.get(roundIndex);
+    }
+
+    public int getPositionAtRound(int roundIndex) {
+        return roundResults.get(roundIndex).getPosition();
+    }
+
+    public int getPositionAtPreviousRound(int roundIndex) {
+        if (roundIndex == 0) {
+            return RoundResult.MIN_POSITION;
+        }
+        return getPositionAtRound(roundIndex - 1);
     }
 
 }
