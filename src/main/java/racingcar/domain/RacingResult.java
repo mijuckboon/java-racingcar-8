@@ -53,7 +53,7 @@ public class RacingResult {
     }
 
     public int getPositionAtPreviousRound(int roundIndex) {
-        if (roundIndex == 0) {
+        if (roundIndex == 1) {
             return RoundResult.MIN_POSITION;
         }
         return getPositionAtRound(roundIndex - 1);
