@@ -1,7 +1,12 @@
-package racingcar;
+package racingcar.presentation;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
+import racingcar.config.AppConfig;
+import racingcar.domain.CarGenerator;
+import racingcar.domain.Car;
+import racingcar.domain.RacingResult;
+import racingcar.service.RacingManager;
 
 /**
  * 경주 프로그램의 진입점 클래스

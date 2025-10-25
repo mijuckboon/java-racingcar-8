@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.domain;
 
 /**
  * 경주에 참가하는 자동차 객체

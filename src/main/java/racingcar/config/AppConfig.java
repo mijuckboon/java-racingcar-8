@@ -1,4 +1,9 @@
-package racingcar;
+package racingcar.config;
+
+import racingcar.domain.CarGenerator;
+import racingcar.presentation.ResultHandler;
+import racingcar.presentation.Application;
+import racingcar.service.RacingManager;
 
 /**
  * 클래스 의존성 주입을 담당하는 클래스

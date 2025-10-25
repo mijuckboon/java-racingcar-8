@@ -1,7 +1,10 @@
-package racingcar;
+package racingcar.presentation;
 
 import java.util.ArrayList;
 import java.util.List;
+import racingcar.domain.RacingResult;
+import racingcar.domain.RoundResult;
+import racingcar.service.RacingManager;
 
 /**
  * 결과를 처리하는 클래스

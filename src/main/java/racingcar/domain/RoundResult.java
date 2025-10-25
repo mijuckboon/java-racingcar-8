@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.domain;
 
 /**
  * 한 라운드의 결과를 저장하는 객체

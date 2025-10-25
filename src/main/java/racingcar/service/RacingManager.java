@@ -1,8 +1,11 @@
-package racingcar;
+package racingcar.service;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import racingcar.domain.Car;
+import racingcar.domain.RacingResult;
+import racingcar.domain.RoundResult;
 
 /**
  * 경주 진행을 담당하는 클래스
