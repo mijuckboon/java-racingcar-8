@@ -1,8 +1,9 @@
-package racingcar.presentation;
+package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.List;
 import racingcar.config.AppConfig;
+import racingcar.presentation.ResultHandler;
 import racingcar.service.CarService;
 import racingcar.domain.Car;
 import racingcar.domain.RacingResult;

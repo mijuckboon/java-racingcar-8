@@ -1,6 +1,6 @@
 package racingcar.config;
 
-import racingcar.presentation.Application;
+import racingcar.Application;
 import racingcar.presentation.ResultHandler;
 import racingcar.service.CarService;
 import racingcar.service.RacingService;
